@@ -1,0 +1,242 @@
+﻿body
+{
+    background-color: #f2f2f2;
+	font-family: Georgia, serif;
+	font-size: 15px;
+	min-height: 600px;
+}
+
+.contentContainer {
+    width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.pageContent {
+    background-color: white;
+    border: 1px solid #DBD9D9;
+    margin-top: 5px;
+    min-height: 300px;
+    padding-bottom: 20px;
+}
+
+.contantTable {
+    border: 0;
+    width: 100%;
+    
+}
+
+/*breadcrumbs*/
+.breadcrumbContainer {
+    margin-left: 20px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.breadcrumbLink {
+    display: inline-block;
+    margin-right: 5px;
+    color: #707070;
+}
+/*Header styles*/
+.headerContainer {
+    height: 120px;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	padding-bottom: 10px;
+    background-color: white;
+    border: 1px solid #DBD9D9;
+}
+
+.headerItem {
+    display: inline-block;
+	margin-left: 40px;
+    vertical-align: top;
+    margin-top: 40px;
+}
+
+#logoContainer {
+    margin-left: -50px;
+    margin-top: 30px;
+    
+}
+
+.searchInput {
+    width: 250px;
+    border-radius: 3px;
+    border: 1px solid #c3c3c3;
+    background-color: #f1f1f1;
+    height: 24px;
+    padding: 1px 5px 1px 5px;
+}
+
+.searchButton, .addToCartButton {
+    border: 0;
+    background-color: #f93;
+    color:  white;
+    border-radius: 3px;
+    padding: 6px 12px 6px 12px;
+    font-weight: bold;
+
+}
+
+.categoryMenu {
+    height: 30px;
+    padding: 0 0 0 10px;
+    margin-top: 20px;
+    line-height: 20px;
+    list-style-type: none;
+    }
+
+.categoryItem {
+    height: 27px;
+    display: block;
+    float: left;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.categoryItem1 {
+    color: chocolate;
+}
+.categoryItem2 {
+    color: coral;
+}
+.categoryItem3 {
+    color: gold;
+}
+.categoryItem4 {
+    color:lightgreen;
+}
+.categoryItem5 {
+    color:darkkhaki;
+}
+
+/*main page items*/
+.mainImage {
+    width: 918px;
+    margin: 20px 20px 0 20px;
+
+}
+
+.productsText {
+    font-size: 18px;
+}
+
+.newProductPrice {
+    color: red;
+    font-size: 17px;
+    margin-top: 5px;
+
+}
+
+
+/*category page items*/
+
+.categoryTable {
+    width: 918px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.productInCategory {
+    background-color: #f2f2f2;
+    border: 1px solid #DBD9D9;
+    width: 300px;
+    height: 280px;
+    padding-bottom: 10px;
+}
+
+
+.smallProductImage {
+    height: 160px;
+    margin-top: 20px;
+}
+
+.prevLink {
+    margin-right: 10px;
+}
+
+.nextLink {
+    margin-left: 10px;
+}
+
+/*product page items*/
+.productName {
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.productInfo {
+    margin-top: 20px;
+}
+
+.normalProductImage {
+    width: 300px;
+}
+
+.quantityInput {
+    margin-right: 10px;
+}
+
+.lbQuantity {
+  margin-right: 20px;
+    font-size: 16px;
+}
+
+.productPageSalePrice {
+    color: red;
+    margin-left: 15px;
+}
+
+.productPageCrossedPrice {
+    text-decoration: line-through;
+}
+
+/*cart items*/
+.heading {
+    text-align: left;
+}
+
+.cartProductImage {
+    height: 90px;
+}
+
+.productTableCart {
+    width: 777px;
+    margin-left: 90px;
+    margin-right: 90px; 
+}
+
+.productCartDisplay {
+    background-color: #f2f2f2;
+    border: 1px solid #DBD9D9;
+    height: 100px;
+}
+
+.sumContainer {
+    text-align: right;
+    margin-right: 90px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.formTable {
+    text-align: left;
+    width: 500px;
+    margin-left: 90px;
+    margin-top: 30px;   
+}
+
+.chechoutButton {
+    border: 0;
+    background-color:lightgreen;
+    color:  white;
+    border-radius: 3px;
+    padding: 6px 12px 6px 12px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-right: 350px;
+}

@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ECommerceModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="ECommerceModelStoreContainer">
+          <EntitySet Name="Category" EntityType="ECommerceModel.Store.Category" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Config" EntityType="ECommerceModel.Store.Config" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Order" EntityType="ECommerceModel.Store.Order" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OrdersToProduct" EntityType="ECommerceModel.Store.OrdersToProduct" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Product" EntityType="ECommerceModel.Store.Product" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Review" EntityType="ECommerceModel.Store.Review" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="ECommerceModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_OrdersToProduct_Order" Association="ECommerceModel.Store.FK_OrdersToProduct_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrdersToProduct" EntitySet="OrdersToProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersToProduct_Product" Association="ECommerceModel.Store.FK_OrdersToProduct_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OrdersToProduct" EntitySet="OrdersToProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Category" Association="ECommerceModel.Store.FK_Product_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Product1" Association="ECommerceModel.Store.FK_Review_Product1">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Config">
+          <Key>
+            <PropertyRef Name="Lock" />
+          </Key>
+          <Property Name="StoreOwner" Type="varchar(max)" />
+          <Property Name="StorePhone" Type="varchar" MaxLength="50" />
+          <Property Name="StoreAddress" Type="varchar(max)" />
+          <Property Name="Lock" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="LogoImage" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CustomersName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="CustomersPhone" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="CustomersEmail" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="CustomersAddress" Type="varchar(max)" Nullable="false" />
+          <Property Name="OrderDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrdersToProduct">
+          <Key>
+            <PropertyRef Name="EntryID" />
+          </Key>
+          <Property Name="EntryID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ProductQuantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="ProductPrice" Type="float" Nullable="false" />
+          <Property Name="ProductDescription" Type="ntext" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="ProductImage" Type="varchar" MaxLength="200" />
+          <Property Name="ProductOnSale" Type="bit" Nullable="false" />
+          <Property Name="ProductSalePrice" Type="float" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ReviewText" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_OrdersToProduct_Order">
+          <End Role="Order" Type="ECommerceModel.Store.Order" Multiplicity="1" />
+          <End Role="OrdersToProduct" Type="ECommerceModel.Store.OrdersToProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrdersToProduct">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersToProduct_Product">
+          <End Role="Product" Type="ECommerceModel.Store.Product" Multiplicity="1" />
+          <End Role="OrdersToProduct" Type="ECommerceModel.Store.OrdersToProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OrdersToProduct">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Category">
+          <End Role="Category" Type="ECommerceModel.Store.Category" Multiplicity="1" />
+          <End Role="Product" Type="ECommerceModel.Store.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_Product1">
+          <End Role="Product" Type="ECommerceModel.Store.Product" Multiplicity="1" />
+          <End Role="Review" Type="ECommerceModel.Store.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ECommerceModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ECommerceEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="ECommerceModel.Category" />
+          <EntitySet Name="Configs" EntityType="ECommerceModel.Config" />
+          <EntitySet Name="Orders" EntityType="ECommerceModel.Order" />
+          <EntitySet Name="OrdersToProducts" EntityType="ECommerceModel.OrdersToProduct" />
+          <EntitySet Name="Products" EntityType="ECommerceModel.Product" />
+          <EntitySet Name="Reviews" EntityType="ECommerceModel.Review" />
+          <EntitySet Name="sysdiagrams" EntityType="ECommerceModel.sysdiagram" />
+          <AssociationSet Name="FK_Product_Category" Association="ECommerceModel.FK_Product_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersToProduct_Order" Association="ECommerceModel.FK_OrdersToProduct_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrdersToProduct" EntitySet="OrdersToProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersToProduct_Product" Association="ECommerceModel.FK_OrdersToProduct_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="OrdersToProduct" EntitySet="OrdersToProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Product1" Association="ECommerceModel.FK_Review_Product1">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Products" Relationship="ECommerceModel.FK_Product_Category" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Config">
+          <Key>
+            <PropertyRef Name="Lock" />
+          </Key>
+          <Property Name="StoreOwner" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="StorePhone" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="StoreAddress" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Lock" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="LogoImage" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomersName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="CustomersPhone" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="CustomersEmail" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="CustomersAddress" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="OrdersToProducts" Relationship="ECommerceModel.FK_OrdersToProduct_Order" FromRole="Order" ToRole="OrdersToProduct" />
+        </EntityType>
+        <EntityType Name="OrdersToProduct">
+          <Key>
+            <PropertyRef Name="EntryID" />
+          </Key>
+          <Property Name="EntryID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ProductQuantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="ECommerceModel.FK_OrdersToProduct_Order" FromRole="OrdersToProduct" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="ECommerceModel.FK_OrdersToProduct_Product" FromRole="OrdersToProduct" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ProductPrice" Type="Double" Nullable="false" />
+          <Property Name="ProductDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="ProductImage" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="ProductOnSale" Type="Boolean" Nullable="false" />
+          <Property Name="ProductSalePrice" Type="Double" />
+          <NavigationProperty Name="Category" Relationship="ECommerceModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="OrdersToProducts" Relationship="ECommerceModel.FK_OrdersToProduct_Product" FromRole="Product" ToRole="OrdersToProduct" />
+          <NavigationProperty Name="Reviews" Relationship="ECommerceModel.FK_Review_Product1" FromRole="Product" ToRole="Review" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ReviewText" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Product" Relationship="ECommerceModel.FK_Review_Product1" FromRole="Review" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Product_Category">
+          <End Role="Category" Type="ECommerceModel.Category" Multiplicity="1" />
+          <End Role="Product" Type="ECommerceModel.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersToProduct_Order">
+          <End Role="Order" Type="ECommerceModel.Order" Multiplicity="1" />
+          <End Role="OrdersToProduct" Type="ECommerceModel.OrdersToProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrdersToProduct">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersToProduct_Product">
+          <End Role="Product" Type="ECommerceModel.Product" Multiplicity="1" />
+          <End Role="OrdersToProduct" Type="ECommerceModel.OrdersToProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OrdersToProduct">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_Product1">
+          <End Role="Product" Type="ECommerceModel.Product" Multiplicity="1" />
+          <End Role="Review" Type="ECommerceModel.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ECommerceModelStoreContainer" CdmEntityContainer="ECommerceEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ECommerceModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Configs">
+            <EntityTypeMapping TypeName="ECommerceModel.Config">
+              <MappingFragment StoreEntitySet="Config">
+                <ScalarProperty Name="StoreOwner" ColumnName="StoreOwner" />
+                <ScalarProperty Name="StorePhone" ColumnName="StorePhone" />
+                <ScalarProperty Name="StoreAddress" ColumnName="StoreAddress" />
+                <ScalarProperty Name="Lock" ColumnName="Lock" />
+                <ScalarProperty Name="LogoImage" ColumnName="LogoImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ECommerceModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="CustomersName" ColumnName="CustomersName" />
+                <ScalarProperty Name="CustomersPhone" ColumnName="CustomersPhone" />
+                <ScalarProperty Name="CustomersEmail" ColumnName="CustomersEmail" />
+                <ScalarProperty Name="CustomersAddress" ColumnName="CustomersAddress" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdersToProducts">
+            <EntityTypeMapping TypeName="ECommerceModel.OrdersToProduct">
+              <MappingFragment StoreEntitySet="OrdersToProduct">
+                <ScalarProperty Name="EntryID" ColumnName="EntryID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductQuantity" ColumnName="ProductQuantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="ECommerceModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
+                <ScalarProperty Name="ProductOnSale" ColumnName="ProductOnSale" />
+                <ScalarProperty Name="ProductSalePrice" ColumnName="ProductSalePrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="ECommerceModel.Review">
+              <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ReviewText" ColumnName="ReviewText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ECommerceModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
